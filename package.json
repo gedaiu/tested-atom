@@ -1,7 +1,7 @@
 {
   "name": "tested",
   "main": "./lib/tested",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "This package adds support for unit tests ran with dub, the Dlang package manager.",
   "keywords": [
     "D",
