@@ -26,6 +26,7 @@
     }
   },
   "dependencies": {
-    "space-pen": "^5.1.1"
+    "space-pen": "^5.1.1",
+    "atom-space-pen-views": "^2.0.5"
   }
 }
