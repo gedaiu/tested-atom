@@ -2,15 +2,12 @@
       "name": "tested",
       "main": "./lib/tested",
       "version": "0.0.1",
-      "description": "GUI for tested Dlang",
+      "description": "This package adds support for unit tests ran with dub, the Dlang package manager.",
       "keywords": [
+            "D", "Dlang", "test", "unittest", "tested"
       ],
 
-      "activationCommands": {
-            "atom-workspace": "tested:toggle"
-      },
-
-      "repository": "https://github.com/atom/tested",
+      "repository": "https://github.com/gedaiu/tested-atom",
       "license": "MIT",
 
       "engines": {

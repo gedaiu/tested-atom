@@ -28,6 +28,12 @@ module.exports = Tested =
 
   activate: (state) ->
 
+      state.testedViewState ?= {
+            tests: {},
+            width: 200,
+            expansionStates: {}
+      }
+
       @testedView = new TestedView(state.testedViewState, {})
       @testedRunner = new TestedRunner(@parser())
 
