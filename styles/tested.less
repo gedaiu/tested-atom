@@ -1,0 +1,117 @@
+// The ui-variables file is provided by base themes provided by Atom.
+//
+// See https://github.com/atom/atom-dark-ui/blob/master/styles/ui-variables.less
+// for a full listing of what's available.
+@import "ui-variables";
+
+.tested {
+	cursor: default;
+	min-width: 150px;
+
+	ol {
+		list-style: none;
+		padding-left: 0;
+		line-height: @component-line-height;
+
+		li {
+			white-space: nowrap;
+
+			li {
+				padding-left: 25px;
+			}
+		}
+
+		li.container::before {
+			font-family: 'Octicons Regular';
+			font-weight: normal;
+			font-style: normal;
+			display: inline-block;
+			line-height: 1.5em;
+			-webkit-font-smoothing: antialiased;
+			text-decoration: none;
+			font-size: 12px;
+			width: 16px;
+			height: 12px;
+			content: "\f078";
+			top: -2px;
+			position: relative;
+			color: @text-color;
+		}
+
+		li.container.open::before {
+			content: "\f0a3";
+		}
+
+		li.container > ol {
+			display: none;
+		}
+
+		li.container.open > ol {
+			display: block;
+		}
+	}
+
+	.test-pass {
+		color: @text-color-success;
+	}
+
+	.test-fail {
+		color: @text-color-error;
+	}
+}
+
+.tested-btn-runner > .tested-start {
+	position: relative;
+	top: -24px;
+	left: 9px;
+	font-size: 18px;
+	text-shadow: -1px -2px 0 #fff;
+}
+
+.tested-btn-runner > .tested-stop {
+	position: relative;
+	top: -19px;
+	left: 9px;
+	font-size: 12px;
+	color: @text-color-error;
+	text-shadow: -1px -2px 0 #fff;
+	display: none;
+}
+
+
+.tested-btn-runner.tested-running > .tested-start {
+	display: none;
+}
+
+.tested-btn-runner.tested-running > .tested-stop {
+	display: inline-block;
+}
+
+
+.tested-resizer {
+	position: relative;
+	height: 100%;
+	overflow: hidden;
+	cursor: default;
+	-webkit-user-select: none;
+	min-width: 100px;
+	width: 200px;
+	z-index: 2;
+
+	.tested-resize-handle {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: 10px;
+		cursor: col-resize;
+		z-index: 3;
+		left: -5px;
+	}
+}
+
+
+.tested-scroller {
+	height: 100%;
+	width: 100%;
+	overflow: auto;
+}
