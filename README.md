@@ -12,4 +12,4 @@ By default you will use the ConsoleTestResultWriter class to write result but if
 you need to have better results, you can use the [AtomTestResultWriter](http://code.dlang.org/packages/tested)
 with a custom [main file](https://github.com/D-Programming-Language/dub/wiki/Cookbook#creating-a-custom-main-for-the-test-build)
 
-![A screenshot](http://szabobogdan.com/tested.gif =400x)
+![A screenshot](http://szabobogdan.com/tested.gif)
