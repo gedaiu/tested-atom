@@ -9,7 +9,7 @@ package as a dependency in your dub.json. Once you can run your tests with teste
 you can toggle this plugin and run the test with tested:run
 
 By default you will use the ConsoleTestResultWriter class to write result but if
-you need to have better results, you can use the [AtomTestResultWriter](http://code.dlang.org/packages/tested)
+you need to have better results, you can use the [AtomTestResultWriter](http://code.dlang.org/packages/tested-atom)
 with a custom [main file](https://github.com/D-Programming-Language/dub/wiki/Cookbook#creating-a-custom-main-for-the-test-build)
 
 ![A screenshot](http://szabobogdan.com/tested.gif)
