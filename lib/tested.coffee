@@ -4,7 +4,8 @@ TestedRunner = require './tested-runner'
 TestedParserAtom = require './tested-parser-atom'
 TestedParserDefault = require './tested-parser-default'
 
-{CompositeDisposable} = require 'atom'
+{CompositeDisposable, Point} = require 'atom'
+
 ChildProcess = require 'child_process'
 
 
@@ -39,6 +40,8 @@ module.exports = Tested =
 
       @modalPanel = atom.workspace.addRightPanel(item: @testedView.element, visible: false)
 
+      @testedView.onJump = @jump
+
       # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
       @subscriptions = new CompositeDisposable
 
@@ -63,6 +66,15 @@ module.exports = Tested =
       writer = atom.config.get('tested.testedWriter')
       console.log writer
       if writer == "AtomTestResultWriter" then new TestedParserAtom else new TestedParserDefault
+
+  jump: (module, row) ->
+    modulePattern = new RegExp('module ' + module, 'i');
+
+    atom.workspace.scan(modulePattern, {}, (result) ->
+      atom.workspace.open(result.filePath, {
+        initialLine: row
+      })
+    )
 
   toggleExecution: ->
       running = @testedRunner.isRunning()

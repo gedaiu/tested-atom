@@ -6,3 +6,6 @@
 * Updated shortcut keys
 * Fixed toolBar button
 * Fixed writer selector
+
+## 0.3.0
+* Click on a result to jump to test source

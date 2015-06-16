@@ -10,8 +10,11 @@ class TestedView extends View
                   @div class: 'tested-resize-handle', outlet: 'resizeHandle'
 
       handleEvents: ->
+          @on 'mousedown', '.test', (e) =>
+              @jump(e)
+
             @on 'mousedown', '.module', (e) =>
-                  @showModule(e)
+              @showModule(e)
 
             @on 'mousedown', '.tested-resize-handle', (e) => @resizeStarted(e)
 
@@ -27,7 +30,6 @@ class TestedView extends View
             return @resizeStopped() unless which is 1
 
             width = $(document.body).width() - pageX
-
             @width(width)
 
 
@@ -52,6 +54,12 @@ class TestedView extends View
             else
                   delete @expansionStates[id]
 
+      jump: (e) ->
+            e.stopPropagation()
+            element = $(e.target)
+
+            @onJump(element.attr("data-module"), parseInt(element.attr("data-line")))
+
       createLevel: (tests, name, id) ->
             list = for key, value of tests
                   if value.name then @createTest value else @createLevel(tests[key], key, id + "." + key)
@@ -69,13 +77,13 @@ class TestedView extends View
       createTest: (test) ->
 
             if test.result == "PASS"
-                  "<li><span class='test test-pass icon icon-check'>#{test.name}</span></li>"
+                  "<li><span data-module='#{test.module}' data-line='#{test.line}' class='test test-pass icon icon-check'>#{test.name}</span></li>"
 
             else if test.result == "FAIL"
-                  "<li><span class='test test-fail icon icon-x'>#{test.name}</span></li>"
+                  "<li><span data-module='#{test.module}' data-line='#{test.line}' class='test test-fail icon icon-x'>#{test.name}</span></li>"
 
             else
-                  "<li><span class='test icon icon-triangle-right'>#{test.name}</span></li>"
+                  "<li><span data-module='#{test.module}' data-line='#{test.line}' class='test icon icon-triangle-right'>#{test.name}</span></li>"
 
       updateParentFailed: ->
             $(".test-fail").each ->
