@@ -72,6 +72,8 @@ class TestedRunner
 			env: process.env
 		)
 
+		console.log("run dub:", dubPath, dubArguments);
+
 		@dub.stdout.on('data', (data) ->
 			lines = (data+"").split '\n'
 

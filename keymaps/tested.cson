@@ -8,5 +8,5 @@
 # For more detailed documentation see
 # https://atom.io/docs/latest/behind-atom-keymaps-in-depth
 'atom-workspace':
-  'ctrl-alt-o': 'tested:toggle'
-  'ctrl-alt-t': 'tested:run'
+  'ctrl-alt-u': 'tested:run'
+  'ctrl-alt-p': 'tested:stop'

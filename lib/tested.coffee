@@ -43,7 +43,7 @@ module.exports = Tested =
       @subscriptions = new CompositeDisposable
 
       # Register command that toggles this view
-      @subscriptions.add atom.commands.add 'atom-workspace', 'tested:toggle': => @toggle()
+      @subscriptions.add atom.commands.add 'atom-workspace', 'tested:stop': => @kill()
 
       # Register command that starts the tests
       @subscriptions.add atom.commands.add 'atom-workspace', 'tested:run': => @run()
@@ -60,14 +60,9 @@ module.exports = Tested =
       testedViewState: @testedView.serialize()
 
   parser: ->
-      writer = atom.config.get('tested.dubArguments')
+      writer = atom.config.get('tested.testedWriter')
+      console.log writer
       if writer == "AtomTestResultWriter" then new TestedParserAtom else new TestedParserDefault
-
-  toggle: ->
-      if @modalPanel.isVisible()
-            @modalPanel.hide()
-      else
-            @modalPanel.show()
 
   toggleExecution: ->
       running = @testedRunner.isRunning()
@@ -88,15 +83,18 @@ module.exports = Tested =
 
   consumeToolBar: (toolBar) ->
       parent = this;
-      @toolBar = toolBar 'main-tool-bar'
+      @toolBar = toolBar 'tested-tool-bar'
 
-      @toolBar.addButton
-            icon: 'ios-flask-outline'
+      button = @toolBar.addButton
+            icon: 'ios-flask'
             callback: 'tested:toggleExecution'
             tooltip: 'Dub test'
             iconset: 'ion'
+            priority: 10
 
-      @testedButton = new TestedButtonView @toolBar.toolBar
+      @toolBar.addSpacer priority: 10
+
+      @testedButton = new TestedButtonView(@toolBar.toolBar, button)
 
       @testedRunner.onStart = ->
             parent.testedButton.start()
