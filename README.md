@@ -12,4 +12,8 @@ By default you will use the ConsoleTestResultWriter class to write result but if
 you need to have better results, you can use the [AtomTestResultWriter](http://code.dlang.org/packages/tested-atom)
 with a custom [main file](https://github.com/D-Programming-Language/dub/wiki/Cookbook#creating-a-custom-main-for-the-test-build)
 
+## Dependencies
+
+In order to use this plugin you need to install [tool-bar](https://atom.io/packages/tool-bar)
+
 ![A screenshot](http://szabobogdan.com/tested.gif)
