@@ -1,7 +1,7 @@
 {
   "name": "tested",
   "main": "./lib/tested",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "linter-package": true,
   "linter-implementation": "tested-linter",
   "description": "This package adds support for unit tests ran with dub, the Dlang package manager.",
