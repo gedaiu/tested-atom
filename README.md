@@ -2,6 +2,8 @@
 
 This package adds support for unit tests ran with dub, the Dlang package manager.
 
+![A screenshot](http://szabobogdan.com/tested.gif)
+
 ## How to use it
 
 In order to use this plugin you need to add [tested](http://code.dlang.org/packages/tested)
@@ -27,5 +29,3 @@ If you want to add a test button to your workspace, you can install
 
 To see the test fail messages, you can install the
 [linter](https://atom.io/packages/linter) plugin
-
-![A screenshot](http://szabobogdan.com/tested.gif)
