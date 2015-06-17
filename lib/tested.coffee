@@ -64,7 +64,6 @@ module.exports = Tested =
 
   parser: ->
       writer = atom.config.get('tested.testedWriter')
-      console.log writer
       if writer == "AtomTestResultWriter" then new TestedParserAtom else new TestedParserDefault
 
   jump: (module, row) ->
@@ -114,6 +113,9 @@ module.exports = Tested =
       @testedRunner.onStop = (code) ->
             parent.testedButton.stop()
             atom.notifications.addError("Dub exited with code " + code) if code != 0
+
+            workspaceElement = atom.views.getView(atom.workspace)
+            atom.commands.dispatch(workspaceElement, "linter:lint", null)
 
       @testedRunner.onSuccess = (nrTests, nrTestsSuccess) ->
             atom.notifications.addSuccess(nrTests + " tests passed") if nrTests == nrTestsSuccess and nrTests > 0

@@ -1,6 +1,7 @@
 {CompositeDisposable} = require 'atom'
 ChildProcess = require 'child_process'
 TestedTest = require './tested-test'
+TestedErrors = require './tested-errors'
 
 module.exports =
 class TestedRunner
@@ -12,6 +13,7 @@ class TestedRunner
 		parent = this
 
 		@parser.on("id", (id) ->
+			parent.addError() if parent.elm?
 			parent.newTest(id)
 		)
 
@@ -27,6 +29,25 @@ class TestedRunner
 		@parser.on("duration", (duration) ->
 			parent.elm.duration = duration
 		)
+
+		@parser.on("error file", (filePath) ->
+			parent.elm.errorFile = filePath
+		)
+
+		@parser.on("error line", (line) ->
+			parent.elm.errorLine = line
+		)
+
+		@parser.on("error msg", (msg) ->
+			parent.elm.errorMsg = msg
+		)
+
+	addError: ->
+		TestedErrors.add({
+				module: @elm.module,
+				line: @elm.errorLine,
+				msg: @elm.errorMsg
+		}) if @elm.errorMsg?
 
 	prepareLevel: (path) ->
 		level = @tests
@@ -62,6 +83,7 @@ class TestedRunner
 		@nrTestsSuccess = 0
 
 		@onStart()
+		TestedErrors.clear()
 
 		dubPath = atom.config.get('tested.dubPath')
 		dubArguments = [ "test" ]
