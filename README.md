@@ -14,6 +14,18 @@ with a custom [main file](https://github.com/D-Programming-Language/dub/wiki/Coo
 
 ## Dependencies
 
-In order to use this plugin you need to install [tool-bar](https://atom.io/packages/tool-bar)
+### Toolbar
+
+![Toolbar screenshot](http://szabobogdan.com/toolbar.png)
+
+If you want to add a test button to your workspace, you can install
+[tool-bar](https://atom.io/packages/tool-bar) plugin.
+
+### Linter
+
+![Linter screenshot](http://szabobogdan.com/linter.png)
+
+To see the test fail messages, you can install the
+[linter](https://atom.io/packages/linter) plugin
 
 ![A screenshot](http://szabobogdan.com/tested.gif)
