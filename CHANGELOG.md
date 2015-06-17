@@ -12,3 +12,6 @@
 
 ## 0.4.0
 * Linter support for test errors
+
+## 0.4.1
+* Documentation update
