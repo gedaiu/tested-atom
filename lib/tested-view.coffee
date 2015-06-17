@@ -7,6 +7,7 @@ class TestedView extends View
             @div class: 'tested tested-resizer tool-panel', =>
                   @div class: 'tested-scroller', outlet: 'scroller', =>
                         @div outlet: "moduleList"
+                  @div class: 'tested-console', outlet: 'console'
                   @div class: 'tested-resize-handle', outlet: 'resizeHandle'
 
       handleEvents: ->
@@ -31,7 +32,6 @@ class TestedView extends View
 
             width = $(document.body).width() - pageX
             @width(width)
-
 
       initialize: (state) ->
             @update state.tests
@@ -75,7 +75,6 @@ class TestedView extends View
             list.join("")
 
       createTest: (test) ->
-
             if test.result == "PASS"
                   "<li><span data-module='#{test.module}' data-line='#{test.line}' class='test test-pass icon icon-check'>#{test.name}</span></li>"
 
@@ -97,6 +96,13 @@ class TestedView extends View
             @moduleList.html ""
             @moduleList.append( @createModules tests )
             @updateParentFailed()
+
+      displayOnConsole: (msg) ->
+            @console.append "<div class='line'>" + msg + "</div>"
+
+      displayErrorOnConsole: (msg) ->
+            @console.append "<div class='line error'>" + msg + "</div>"
+
 
       width: (value) ->
             if value? then $(".tested").width value

@@ -107,19 +107,23 @@ module.exports = Tested =
 
       @testedButton = new TestedButtonView(@toolBar.toolBar, button)
 
+      @testedRunner.onConsole = (msg)->
+        parent.testedView.displayOnConsole msg
+
+      @testedRunner.onConsoleError = (msg)->
+        parent.testedView.displayErrorOnConsole msg
+
       @testedRunner.onStart = ->
-            parent.testedButton.start()
+        parent.testedButton.start()
 
       @testedRunner.onStop = (code) ->
-            parent.testedButton.stop()
-            atom.notifications.addError("Dub exited with code " + code) if code != 0
-
-            workspaceElement = atom.views.getView(atom.workspace)
+        parent.testedButton.stop()
+        atom.notifications.addError("Dub exited with code " + code) if code != 0
 
       @testedRunner.onSuccess = (nrTests, nrTestsSuccess) ->
-            atom.notifications.addSuccess(nrTests + " tests passed") if nrTests == nrTestsSuccess and nrTests > 0
+        atom.notifications.addSuccess(nrTests + " tests passed") if nrTests == nrTestsSuccess and nrTests > 0
 
-            failed = nrTests - nrTestsSuccess
+        failed = nrTests - nrTestsSuccess
 
-            atom.notifications.addError("1 test failed") if failed == 1 and nrTests > 0
-            atom.notifications.addError(failed + " tests failed") if failed > 1 and nrTests > 0
+        atom.notifications.addError("1 test failed") if failed == 1 and nrTests > 0
+        atom.notifications.addError(failed + " tests failed") if failed > 1 and nrTests > 0

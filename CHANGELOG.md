@@ -15,3 +15,6 @@
 
 ## 0.4.1
 * Documentation update
+
+## 0.5.0
+* Added console output window

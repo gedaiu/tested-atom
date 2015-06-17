@@ -42,6 +42,14 @@ class TestedRunner
 			parent.elm.errorMsg = msg
 		)
 
+		@parser.on("console", (msg) ->
+			parent.onConsole(msg)
+		)
+
+		@parser.on("console error", (msg) ->
+			parent.onConsoleError(msg)
+		)
+
 	addError: ->
 		TestedErrors.add({
 				module: @elm.module,
@@ -67,6 +75,9 @@ class TestedRunner
 
 	parseLine: (line) ->
 		@parser.parse(line)
+
+	parseErrorLine: (line) ->
+		@parser.parseError(line)
 
 	isRunning: ->
 		if @dub? then true else false
@@ -103,6 +114,13 @@ class TestedRunner
 				parent.parseLine(line)
 
 			callback(parent.tests)
+		)
+
+		@dub.stderr.on('data', (data) ->
+			lines = (data+"").split '\n'
+
+			for i, line of lines
+				parent.parseErrorLine(line)
 		)
 
 		@dub.on('exit', (code) ->

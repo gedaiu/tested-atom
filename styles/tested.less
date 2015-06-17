@@ -5,8 +5,8 @@
 @import "ui-variables";
 
 @-webkit-keyframes testedRunning {
-    from {color: @text-color;}
-    to {color: @text-color-info;}
+  from {color: @text-color;}
+  to {color: @text-color-info;}
 }
 
 .tested {
@@ -93,9 +93,31 @@
 	}
 }
 
-
 .tested-scroller {
-	height: 100%;
+	height: calc(~"100% - 200px");
 	width: 100%;
 	overflow: auto;
+}
+
+.tested-console {
+  background-color: darken(@base-background-color, 10%);
+  border-top: 1px solid @base-border-color;
+  height: 200px;
+  overflow: scroll;
+  cursor: text;
+  padding: 10px 0 0 10px;
+  -webkit-user-select: text;
+
+  .line {
+    font-family: monospace;
+    font-size: 12px;
+    line-height: 1.3em;
+    white-space: nowrap;
+    color: lighten(@text-color, 10%);
+    -webkit-user-select: text;
+  }
+
+  .error {
+    color: lighten(@text-color-error, 10%);
+  }
 }

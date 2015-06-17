@@ -29,3 +29,9 @@ class TestedParserAtom extends EventEmitter
 
 		else if(parts[0] == "ERROR MSG")
 			@emit("error msg", parts[1])
+
+		else
+			@emit("console", line);
+
+	parseError: (line)->
+		@emit("console error", line);
