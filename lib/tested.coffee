@@ -30,7 +30,6 @@ module.exports = Tested =
   activate: (state) ->
 
       state.testedViewState ?= {
-            tests: {},
             width: 200,
             expansionStates: {},
       }
@@ -39,9 +38,9 @@ module.exports = Tested =
 
       @testedRunner = new TestedRunner(@parser())
 
-      @modalPanel = atom.workspace.addRightPanel(item: @testedView.element, visible: true)
+      @modalPanel = atom.workspace.addRightPanel(item: @testedView.element, visible: false)
 
-      @testedView.onJump = @jump
+      @testedView.testedViewResults.onJump = @jump
 
       # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
       @subscriptions = new CompositeDisposable
@@ -91,7 +90,7 @@ module.exports = Tested =
       @modalPanel.show()
 
       @testedRunner.run (tests) ->
-            parent.testedView.update tests
+            parent.testedView.testedViewResults.update tests
 
   consumeToolBar: (toolBar) ->
       parent = this;
