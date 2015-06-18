@@ -1,3 +1,4 @@
+TestedViewTab = require './tested-view-tab'
 {$, View} = require 'atom-space-pen-views'
 
 module.exports =
@@ -5,10 +6,13 @@ class TestedView extends View
 
       @content: ->
             @div class: 'tested tested-resizer tool-panel', =>
-                  @div class: 'tested-scroller', outlet: 'scroller', =>
-                        @div outlet: "moduleList"
-                  @div class: 'tested-console', outlet: 'console'
-                  @div class: 'tested-resize-handle', outlet: 'resizeHandle'
+                @div class: 'tested-tabs', outlet: 'tabs', =>
+
+                @div class: 'tested-scroller show-results', outlet: 'scroller', =>
+                    @div class: 'tested-results', outlet: "moduleList"
+                    @div class: 'tested-console', outlet: 'console'
+
+                @div class: 'tested-resize-handle', outlet: 'resizeHandle'
 
       handleEvents: ->
           @on 'mousedown', '.test', (e) =>
@@ -34,12 +38,26 @@ class TestedView extends View
             @width(width)
 
       initialize: (state) ->
+            parent = this
+
+            state.tests ?= {}
+
+            @testedViewTab = new TestedViewTab()
+            @testedViewTab.onTabSelect = (tab) ->
+                parent.showComponent tab
+
+            @tabs.append @testedViewTab.element
+
             @update state.tests
 
             @width(state.width)
             @updateExpansionStates(state.expansionStates)
 
             @handleEvents()
+
+      showComponent: (tab) ->
+          @scroller.removeClass "show-console show-results"
+          @scroller.addClass "show-"+tab
 
       showModule: (e) ->
             e.stopPropagation()
@@ -57,8 +75,11 @@ class TestedView extends View
       jump: (e) ->
             e.stopPropagation()
             element = $(e.target)
-
             @onJump(element.attr("data-module"), parseInt(element.attr("data-line")))
+
+      clear: ->
+          @console.html ""
+          @moduleList.html ""
 
       createLevel: (tests, name, id) ->
             list = for key, value of tests
@@ -80,7 +101,6 @@ class TestedView extends View
 
             else if test.result == "FAIL"
                   "<li><span data-module='#{test.module}' data-line='#{test.line}' class='test test-fail icon icon-x'>#{test.name}</span></li>"
-
             else
                   "<li><span data-module='#{test.module}' data-line='#{test.line}' class='test icon icon-triangle-right'>#{test.name}</span></li>"
 
@@ -102,7 +122,6 @@ class TestedView extends View
 
       displayErrorOnConsole: (msg) ->
             @console.append "<div class='line error'>" + msg + "</div>"
-
 
       width: (value) ->
             if value? then $(".tested").width value

@@ -32,13 +32,14 @@ module.exports = Tested =
       state.testedViewState ?= {
             tests: {},
             width: 200,
-            expansionStates: {}
+            expansionStates: {},
       }
 
-      @testedView = new TestedView(state.testedViewState, {})
+      @testedView = new TestedView(state.testedViewState)
+
       @testedRunner = new TestedRunner(@parser())
 
-      @modalPanel = atom.workspace.addRightPanel(item: @testedView.element, visible: false)
+      @modalPanel = atom.workspace.addRightPanel(item: @testedView.element, visible: true)
 
       @testedView.onJump = @jump
 
@@ -85,7 +86,7 @@ module.exports = Tested =
 
   run: ->
       parent = this
-      @testedView.update {}
+      @testedView.clear()
 
       @modalPanel.show()
 

@@ -5,8 +5,8 @@
 @import "ui-variables";
 
 @-webkit-keyframes testedRunning {
-  from {color: @text-color;}
-  to {color: @text-color-info;}
+from {color: @text-color;}
+to {color: @text-color-info;}
 }
 
 .tested {
@@ -63,6 +63,10 @@
 	.test-fail {
 		color: @text-color-error;
 	}
+
+    .tested-tabs {
+        position: relative;
+    }
 }
 
 .tested-running::before {
@@ -94,30 +98,49 @@
 }
 
 .tested-scroller {
-	height: calc(~"100% - 200px");
+	height: 100%;
 	width: 100%;
 	overflow: auto;
+
+    .tested-results {
+
+    }
+
+    .tested-console {
+
+        cursor: text;
+        margin: 10px 10px 150px 10px;
+
+        .line {
+            font-family: monospace;
+            font-size: 12px;
+            line-height: 1.3em;
+            white-space: nowrap;
+            -webkit-user-select: text;
+        }
+
+        .error {
+            color: @text-color-error;
+        }
+    }
 }
 
-.tested-console {
-  background-color: darken(@base-background-color, 10%);
-  border-top: 1px solid @base-border-color;
-  height: 200px;
-  overflow: scroll;
-  cursor: text;
-  padding: 10px 0 0 10px;
-  -webkit-user-select: text;
+.tested-scroller.show-results {
+    .tested-results {
+        display: block;
+    }
 
-  .line {
-    font-family: monospace;
-    font-size: 12px;
-    line-height: 1.3em;
-    white-space: nowrap;
-    color: lighten(@text-color, 10%);
-    -webkit-user-select: text;
-  }
+    .tested-console {
+        display: none;
+    }
+}
 
-  .error {
-    color: lighten(@text-color-error, 10%);
-  }
+.tested-scroller.show-console {
+    .tested-results {
+        display: none;
+    }
+
+    .tested-console {
+        display: block;
+    }
 }
