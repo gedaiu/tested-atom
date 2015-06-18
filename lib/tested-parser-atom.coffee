@@ -6,7 +6,6 @@ module.exports =
 class TestedParserAtom extends EventEmitter
 
 	parse: (line) ->
-
 		parts = line.split ':'
 
 		if(parts[0] == "ID")

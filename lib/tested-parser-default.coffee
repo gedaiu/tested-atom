@@ -16,3 +16,8 @@ class TestedParserDefault extends EventEmitter
 			@emit("name", parts[1]) if parts[1] != ""
 			@emit("result", parts[0])
 			@emit("duration", parseFloat(parts[3]))
+		else
+			@emit("console", line)
+
+	parseError: (line)->
+		@emit("console error", line);
