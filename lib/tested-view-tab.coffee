@@ -3,11 +3,14 @@
 module.exports =
 class TestedViewTab extends View
 	@content: ->
-		@ul class: 'list-inline tab-bar', =>
-			@li "data-name": "results", class: 'tab active tested-tab tested-tab-results', =>
-				@div class: 'title', outlet: 'results'
-			@li "data-name": "console", class: 'tab tested-tab tested-tab-console', =>
-				@div class: 'title', outlet: 'console'
+		@div =>
+			@ul class: 'list-inline tab-bar', =>
+				@li "data-name": "results", class: 'tab active tested-tab tested-tab-results', =>
+					@div class: 'title', outlet: 'results'
+				@li "data-name": "console", class: 'tab tested-tab tested-tab-console', =>
+					@div class: 'title', outlet: 'console'
+
+			@div class: 'icon-close', outlet: 'close'
 
 	initialize: (state) ->
 		@results.html "Results"
@@ -21,3 +24,6 @@ class TestedViewTab extends View
 
 			$('.tested-tab').removeClass "active"
 			$(e.currentTarget).addClass "active"
+
+		@on 'mousedown', ".icon-close", (e) =>
+			@onClose()

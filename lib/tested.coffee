@@ -40,7 +40,10 @@ module.exports = Tested =
 
       @modalPanel = atom.workspace.addRightPanel(item: @testedView.element, visible: false)
 
+      parent = this
       @testedView.testedViewResults.onJump = @jump
+      @testedView.testedViewTab.onClose = () ->
+          parent.close()
 
       # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
       @subscriptions = new CompositeDisposable
@@ -74,6 +77,10 @@ module.exports = Tested =
         initialLine: row
       })
     )
+
+  close: ->
+    console.log("close" , this)
+    @modalPanel.hide()
 
   toggleExecution: ->
       running = @testedRunner.isRunning()
