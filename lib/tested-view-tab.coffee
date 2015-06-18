@@ -1,7 +1,7 @@
 {$, View} = require 'atom-space-pen-views'
 
 module.exports =
-class TestedTabView extends View
+class TestedViewTab extends View
 	@content: ->
 		@ul class: 'list-inline tab-bar', =>
 			@li "data-name": "results", class: 'tab active tested-tab tested-tab-results', =>

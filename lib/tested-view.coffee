@@ -1,4 +1,5 @@
 TestedViewTab = require './tested-view-tab'
+TestedViewConsole = require './tested-view-console'
 {$, View} = require 'atom-space-pen-views'
 
 module.exports =
@@ -10,7 +11,6 @@ class TestedView extends View
 
                 @div class: 'tested-scroller show-results', outlet: 'scroller', =>
                     @div class: 'tested-results', outlet: "moduleList"
-                    @div class: 'tested-console', outlet: 'console'
 
                 @div class: 'tested-resize-handle', outlet: 'resizeHandle'
 
@@ -48,6 +48,9 @@ class TestedView extends View
 
             @tabs.append @testedViewTab.element
 
+            @testedViewConsole = new TestedViewConsole()
+            @scroller.append @testedViewConsole.element
+
             @update state.tests
 
             @width(state.width)
@@ -78,8 +81,8 @@ class TestedView extends View
             @onJump(element.attr("data-module"), parseInt(element.attr("data-line")))
 
       clear: ->
-          @console.html ""
           @moduleList.html ""
+          @testedViewConsole.clear()
 
       createLevel: (tests, name, id) ->
             list = for key, value of tests
@@ -116,12 +119,6 @@ class TestedView extends View
             @moduleList.html ""
             @moduleList.append( @createModules tests )
             @updateParentFailed()
-
-      displayOnConsole: (msg) ->
-            @console.append "<div class='line'>" + msg + "</div>"
-
-      displayErrorOnConsole: (msg) ->
-            @console.append "<div class='line error'>" + msg + "</div>"
 
       width: (value) ->
             if value? then $(".tested").width value

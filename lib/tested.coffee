@@ -109,10 +109,10 @@ module.exports = Tested =
       @testedButton = new TestedButtonView(@toolBar.toolBar, button)
 
       @testedRunner.onConsole = (msg)->
-        parent.testedView.displayOnConsole msg
+        parent.testedView.testedViewConsole.display msg
 
       @testedRunner.onConsoleError = (msg)->
-        parent.testedView.displayErrorOnConsole msg
+        parent.testedView.testedViewConsole.error msg
 
       @testedRunner.onStart = ->
         parent.testedButton.start()
