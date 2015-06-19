@@ -18,3 +18,6 @@
 
 ## 0.5.0
 * Added console output window
+
+## 0.5.1
+* Fixed console white spaces
