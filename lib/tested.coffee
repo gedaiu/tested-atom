@@ -26,6 +26,9 @@ module.exports = Tested =
       type: 'string'
       default: "ConsoleTestResultWriter"
       enum: ["ConsoleTestResultWriter", "AtomTestResultWriter"]
+    showToolbarIcon:
+      type: 'boolean'
+      default: true
 
   activate: (state) ->
 
@@ -100,37 +103,38 @@ module.exports = Tested =
             parent.testedView.testedViewResults.update tests
 
   consumeToolBar: (toolBar) ->
-      parent = this;
-      @toolBar = toolBar 'tested-tool-bar'
+      if atom.config.get('tested.showToolbarIcon')
+        parent = this;
+        @toolBar = toolBar 'tested-tool-bar'
 
-      button = @toolBar.addButton
-            icon: 'ios-flask'
-            callback: 'tested:toggleExecution'
-            tooltip: 'Dub test'
-            iconset: 'ion'
-            priority: 10
+        button = @toolBar.addButton
+              icon: 'ios-flask'
+              callback: 'tested:toggleExecution'
+              tooltip: 'Dub test'
+              iconset: 'ion'
+              priority: 10
 
-      @toolBar.addSpacer priority: 10
+        @toolBar.addSpacer priority: 10
 
-      @testedButton = new TestedButtonView(@toolBar.toolBar, button)
+        @testedButton = new TestedButtonView(@toolBar.toolBar, button)
 
-      @testedRunner.onConsole = (msg)->
-        parent.testedView.testedViewConsole.display msg
+        @testedRunner.onConsole = (msg)->
+          parent.testedView.testedViewConsole.display msg
 
-      @testedRunner.onConsoleError = (msg)->
-        parent.testedView.testedViewConsole.error msg
+        @testedRunner.onConsoleError = (msg)->
+          parent.testedView.testedViewConsole.error msg
 
-      @testedRunner.onStart = ->
-        parent.testedButton.start()
+        @testedRunner.onStart = ->
+          parent.testedButton.start()
 
-      @testedRunner.onStop = (code) ->
-        parent.testedButton.stop()
-        atom.notifications.addError("Dub exited with code " + code) if code != 0
+        @testedRunner.onStop = (code) ->
+          parent.testedButton.stop()
+          atom.notifications.addError("Dub exited with code " + code) if code != 0
 
-      @testedRunner.onSuccess = (nrTests, nrTestsSuccess) ->
-        atom.notifications.addSuccess(nrTests + " tests passed") if nrTests == nrTestsSuccess and nrTests > 0
+        @testedRunner.onSuccess = (nrTests, nrTestsSuccess) ->
+          atom.notifications.addSuccess(nrTests + " tests passed") if nrTests == nrTestsSuccess and nrTests > 0
 
-        failed = nrTests - nrTestsSuccess
+          failed = nrTests - nrTestsSuccess
 
-        atom.notifications.addError("1 test failed") if failed == 1 and nrTests > 0
-        atom.notifications.addError(failed + " tests failed") if failed > 1 and nrTests > 0
+          atom.notifications.addError("1 test failed") if failed == 1 and nrTests > 0
+          atom.notifications.addError(failed + " tests failed") if failed > 1 and nrTests > 0
